@@ -124,21 +124,21 @@ if menu == "Predição":
       }])
 
       proba = model.predict_proba(input_data)[0]
-classes = model.classes_
+      classes = model.classes_
 
-df_proba = (
-    pd.DataFrame({
-        "Classe": classes,
-        "Probabilidade": proba
-    })
-    .sort_values("Probabilidade", ascending=False)
-)
-
-pred_class = classes[proba.argmax()]
-
-st.success(f"Nível previsto de obesidade: **{label_map[pred_class]}**")
-st.markdown("### Probabilidade por classe")
-st.dataframe(df_proba)
+      df_proba = (
+          pd.DataFrame({
+              "Classe": classes,
+              "Probabilidade": proba
+          })
+          .sort_values("Probabilidade", ascending=False)
+      )
+      
+      pred_class = classes[proba.argmax()]
+      
+      st.success(f"Nível previsto de obesidade: **{label_map[pred_class]}**")
+      st.markdown("### Probabilidade por classe")
+      st.dataframe(df_proba)
 
       
 
