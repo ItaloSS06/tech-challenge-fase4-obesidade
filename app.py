@@ -123,8 +123,24 @@ if menu == "Predição":
           "MTRANS": mtrans
       }])
 
-      prediction = model.predict(input_data)[0]
-      st.success(f"Nível previsto de obesidade: **{label_map[prediction]}**")
+      proba = model.predict_proba(input_data)[0]
+classes = model.classes_
+
+df_proba = (
+    pd.DataFrame({
+        "Classe": classes,
+        "Probabilidade": proba
+    })
+    .sort_values("Probabilidade", ascending=False)
+)
+
+pred_class = classes[proba.argmax()]
+
+st.success(f"Nível previsto de obesidade: **{label_map[pred_class]}**")
+st.markdown("### Probabilidade por classe")
+st.dataframe(df_proba)
+
+      
 
 
 # ===============================
