@@ -91,6 +91,17 @@ if menu == "Predição":
           "Meio de transporte",
           ["Public_Transportation", "Walking", "Automobile", "Motorbike", "Bike"]
       )
+    
+  label_map = {
+      "Insufficient_Weight": "Peso insuficiente",
+      "Normal_Weight": "Peso normal",
+      "Overweight_Level_I": "Sobrepeso - Nível I",
+      "Overweight_Level_II": "Sobrepeso - Nível II",
+      "Obesity_Type_I": "Obesidade Grau I",
+      "Obesity_Type_II": "Obesidade Grau II",
+      "Obesity_Type_III": "Obesidade Grau III"
+  }
+
 
   if st.button("Prever nível de obesidade"):
       input_data = pd.DataFrame([{
@@ -112,8 +123,9 @@ if menu == "Predição":
           "MTRANS": mtrans
       }])
 
-      prediction = model.predict(input_data)
-      st.success(f"Nível previsto de obesidade: **{prediction[0]}**")
+      prediction = model.predict(input_data)[0]
+      st.success(f"Nível previsto de obesidade: **{label_map[prediction]}**")
+
 
 # ===============================
 # DASHBOARD ANALÍTICO
